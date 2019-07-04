@@ -66,7 +66,20 @@ public class PeopleController {
         // updated, the person should be returned from the endpoint.
         // If null is returned from the PeopleRepository then a
         // NotFound should be returned.
-        throw new NotImplementedException();
+
+        Optional<Person> personData =peopleRespository.findById(id);
+        ResponseEntity responseEntity;
+
+        if(personData.isPresent()){
+            personData.get().setAuthorised(personUpdate.isAuthorised());
+            personData.get().setEnabled(personUpdate.isEnabled());
+            personData.get().setColours(personUpdate.getColours());
+            peopleRespository.save(personData.get());
+            responseEntity = new ResponseEntity(personData,HttpStatus.OK);
+        } else{
+            responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
     }
 
 }
