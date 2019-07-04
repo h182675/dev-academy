@@ -1,6 +1,7 @@
 package com.answerdigital.colourstest.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,7 +45,15 @@ public class PeopleController {
         // If null is returned from the PeopleRepository with
         // the supplied id then a NotFound should be returned.
 
-        throw new NotImplementedException();
+        Optional<Person> personData = peopleRespository.findById(id);
+        ResponseEntity responseEntity;
+
+        if(personData.isPresent()){
+            responseEntity = new ResponseEntity(personData,HttpStatus.OK);
+        }else{
+            responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
     }
 
     @PutMapping("/{id}")
