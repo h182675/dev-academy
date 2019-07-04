@@ -3,6 +3,7 @@ package com.answerdigital.colourstest.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +32,7 @@ public class PeopleController {
         // of people from the PeopleRepository. If there are zero
         // people returned from PeopleRepository then an empty
         // JSON array should be returned.
-        throw new NotImplementedException();
+        return new ResponseEntity(peopleRespository.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
