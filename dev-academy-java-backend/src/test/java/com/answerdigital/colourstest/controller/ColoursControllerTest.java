@@ -2,6 +2,7 @@ package com.answerdigital.colourstest.controller;
 
 import com.answerdigital.colourstest.model.Colour;
 import com.answerdigital.colourstest.repository.ColoursRepository;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
@@ -14,13 +15,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,7 +52,7 @@ public class ColoursControllerTest {
 
     @Test
     public void testGetAllReturnsOk() throws Exception {
-            // Given
+        // Given
         given(coloursRepository.findAll()).willReturn(Collections.emptyList());
 
         // When
@@ -69,14 +72,14 @@ public class ColoursControllerTest {
 
         // Then
         result.andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
-            .andExpect(content().json("[]"));
+                .andExpect(content().json("[]"));
     }
 
     @Test
     public void testGetAllReturnsPeople() throws Exception {
         // Given
         given(coloursRepository.findAll()).willReturn(Arrays.asList(
-            new Colour[]{new Colour(2001L, "Red"), new Colour(2002L, "Green"), new Colour(2003L, "Blue")}
+                new Colour[]{new Colour(2001L, "Red"), new Colour(2002L, "Green"), new Colour(2003L, "Blue")}
         ));
 
         // When
@@ -84,21 +87,33 @@ public class ColoursControllerTest {
 
         // Then
         result.andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
-            .andExpect(content().json("["
-                + "{'id':2001, 'name':'Red'},{'id':2002, 'name':'Green'}, {'id':2003, 'name':'Blue'}]"
-            ));
+                .andExpect(content().json("["
+                        + "{'id':2001, 'name':'Red'},{'id':2002, 'name':'Green'}, {'id':2003, 'name':'Blue'}]"
+                ));
     }
 
     @Test
     public void testGetReturnsOk() throws Exception {
         // Given
-        given(coloursRepository.findById(anyLong())).willReturn(Optional.of(new Colour(1L,"Red")));
+        given(coloursRepository.findById(anyLong())).willReturn(Optional.of(new Colour(1L, "Red")));
 
         // When
         ResultActions result = mvc.perform(get("/colours/1").accept(APPLICATION_JSON));
 
         // Then
         result.andExpect(status().isOk());
+    }
+
+    @Test
+    public void testGetReturnsNotFound() throws Exception {
+        // Given
+        given(coloursRepository.findById(anyLong())).willReturn(Optional.empty());
+
+        // When
+        ResultActions result = mvc.perform(get("/colours/1").accept(APPLICATION_JSON));
+
+        // Then
+        result.andExpect(status().isNotFound());
     }
 
 }
