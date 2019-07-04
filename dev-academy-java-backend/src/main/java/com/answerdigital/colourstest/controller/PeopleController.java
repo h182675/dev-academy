@@ -6,12 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.answerdigital.colourstest.dto.PersonUpdateDTO;
 import com.answerdigital.colourstest.exception.NotImplementedException;
@@ -80,6 +75,12 @@ public class PeopleController {
             responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return responseEntity;
+    }
+
+    @PostMapping
+    public ResponseEntity<Person> updatePerson(@RequestBody PersonUpdateDTO newPerson){
+        // TODO Optional 3
+        throw new NotImplementedException();
     }
 
 }
