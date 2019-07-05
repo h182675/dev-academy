@@ -22,27 +22,29 @@ CREATE TABLE person_colours (
 	FOREIGN KEY (colour_id) REFERENCES colour(id)
 );
 
+CREATE SEQUENCE SQ_COLOUR_ID;
+
 INSERT INTO colour 
  (id, name) 
-VALUES 
- (hibernate_sequence.NEXTVAL, 'Red'),
- (hibernate_sequence.NEXTVAL, 'Green'),
- (hibernate_sequence.NEXTVAL, 'Blue');
+VALUES
+ (colour_seq.NEXTVAL, 'Red'),
+ (colour_seq.NEXTVAL, 'Green'),
+ (colour_seq.NEXTVAL, 'Blue');
  
 INSERT INTO people 
  (id, first_name, last_name, authorised, enabled) 
 VALUES 
- (1, 'Bo', 'Bob', true, false),
- (2, 'Brian', 'Allen', true, true),
- (3, 'Courtney', 'Arnold', true, true),
- (4, 'Gabriel', 'Francis', false, false),
- (5, 'George', 'Edwards', true, false),
- (6, 'Imogen', 'Kent', false, false),
- (7, 'Joel', 'Daly', true, true),
- (8, 'Lilly', 'Hale', false, false),
- (9, 'Patrick', 'Kerr', true, true),
- (10, 'Sharon', 'Halt', false, false),
- (11, 'Willis', 'Tibbs', true, false);
+ (person_seq.NEXTVAL, 'Bo', 'Bob', true, false),
+ (person_seq.NEXTVAL, 'Brian', 'Allen', true, true),
+ (person_seq.NEXTVAL, 'Courtney', 'Arnold', true, true),
+ (person_seq.NEXTVAL, 'Gabriel', 'Francis', false, false),
+ (person_seq.NEXTVAL, 'George', 'Edwards', true, false),
+ (person_seq.NEXTVAL, 'Imogen', 'Kent', false, false),
+ (person_seq.NEXTVAL, 'Joel', 'Daly', true, true),
+ (person_seq.NEXTVAL, 'Lilly', 'Hale', false, false),
+ (person_seq.NEXTVAL, 'Patrick', 'Kerr', true, true),
+ (person_seq.NEXTVAL, 'Sharon', 'Halt', false, false),
+ (person_seq.NEXTVAL, 'Willis', 'Tibbs', true, false);
  
 INSERT INTO person_colours 
  (person_id, colour_id) 

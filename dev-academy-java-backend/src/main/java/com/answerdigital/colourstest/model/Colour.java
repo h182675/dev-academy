@@ -1,19 +1,15 @@
 package com.answerdigital.colourstest.model;
 
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "colour")
 public class Colour {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "colour_generator")
+    @SequenceGenerator(name = "colour_generator",sequenceName = "colour_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "name")
