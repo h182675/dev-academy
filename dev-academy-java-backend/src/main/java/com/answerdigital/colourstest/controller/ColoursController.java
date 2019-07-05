@@ -1,8 +1,9 @@
 package com.answerdigital.colourstest.controller;
 
-import com.answerdigital.colourstest.exception.NotImplementedException;
+import com.answerdigital.colourstest.dto.ColourUpdateDTO;
 import com.answerdigital.colourstest.model.Colour;
 import com.answerdigital.colourstest.repository.ColoursRepository;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -24,24 +25,35 @@ public class ColoursController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Colour> getColour(@PathVariable("id") long id){
+    public ResponseEntity<Colour> getColour(@PathVariable("id") long id) {
         // TODO Optional 1
 
         Optional<Colour> colourData = coloursRepository.findById(id);
         ResponseEntity responseEntity;
 
-        if(colourData.isPresent()){
-            responseEntity = new ResponseEntity(colourData,HttpStatus.OK);
-        }else{
+        if (colourData.isPresent()) {
+            responseEntity = new ResponseEntity(colourData, HttpStatus.OK);
+        } else {
             responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return responseEntity;
     }
 
     @PostMapping
-    public ResponseEntity<Colour> createColour(){
+    public ResponseEntity<Colour> createColour(@RequestBody ColourUpdateDTO colourUpdateDto) {
         // TODO Optional 2
-        throw new NotImplementedException();
+        // I think these validations should be done on the front-end but just
+        // in case something is off. I'm also uncertain as to how to ensure
+        // unique ID.
+
+        ResponseEntity<Colour> responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(colourUpdateDto.getName().length()>0){
+            Colour colour = new Colour(null, colourUpdateDto.getName());
+            coloursRepository.saveAndFlush(colour);
+            responseEntity = new ResponseEntity(colour, HttpStatus.OK);
+        }
+
+        return responseEntity;
     }
 
 
