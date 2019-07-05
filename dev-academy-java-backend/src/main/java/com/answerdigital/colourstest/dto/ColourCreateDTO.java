@@ -2,16 +2,16 @@ package com.answerdigital.colourstest.dto;
 
 import java.util.Objects;
 
-public class ColourUpdateDTO {
+public class ColourCreateDTO {
     private Long id;
 
     private String name;
 
-    public ColourUpdateDTO(){
+    public ColourCreateDTO(){
 
     }
 
-    public ColourUpdateDTO(Long id, String name){
+    public ColourCreateDTO(Long id, String name){
         this.id = id;
         this.name = name;
     }
@@ -51,7 +51,7 @@ public class ColourUpdateDTO {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ColourUpdateDTO other = (ColourUpdateDTO) obj;
+        final ColourCreateDTO other = (ColourCreateDTO) obj;
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }

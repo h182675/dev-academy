@@ -1,6 +1,6 @@
 package com.answerdigital.colourstest.controller;
 
-import com.answerdigital.colourstest.dto.ColourUpdateDTO;
+import com.answerdigital.colourstest.dto.ColourCreateDTO;
 import com.answerdigital.colourstest.model.Colour;
 import com.answerdigital.colourstest.repository.ColoursRepository;
 
@@ -40,15 +40,12 @@ public class ColoursController {
     }
 
     @PostMapping
-    public ResponseEntity<Colour> createColour(@RequestBody ColourUpdateDTO colourUpdateDto) {
+    public ResponseEntity<Colour> createColour(@RequestBody ColourCreateDTO colourCreateDto) {
         // TODO Optional 2
-        // I think these validations should be done on the front-end but just
-        // in case something is off. I'm also uncertain as to how to ensure
-        // unique ID.
 
         ResponseEntity<Colour> responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        if(colourUpdateDto.getName().length()>0){
-            Colour colour = new Colour(null, colourUpdateDto.getName());
+        if(colourCreateDto.getName().length()>0){
+            Colour colour = new Colour(null, colourCreateDto.getName());
             coloursRepository.saveAndFlush(colour);
             responseEntity = new ResponseEntity(colour, HttpStatus.OK);
         }
