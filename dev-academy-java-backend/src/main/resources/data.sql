@@ -25,9 +25,9 @@ CREATE TABLE person_colours (
 INSERT INTO colour 
  (id, name) 
 VALUES 
- (1, 'Red'),
- (2, 'Green'),
- (3, 'Blue');
+ (hibernate_sequence.NEXTVAL, 'Red'),
+ (hibernate_sequence.NEXTVAL, 'Green'),
+ (hibernate_sequence.NEXTVAL, 'Blue');
  
 INSERT INTO people 
  (id, first_name, last_name, authorised, enabled) 
