@@ -3,6 +3,7 @@ package com.answerdigital.colourstest.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.answerdigital.colourstest.dto.PersonCreateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -78,9 +79,27 @@ public class PeopleController {
     }
 
     @PostMapping
-    public ResponseEntity<Person> updatePerson(@RequestBody PersonUpdateDTO newPerson){
+    public ResponseEntity<Person> createPerson(@RequestBody PersonCreateDTO newPerson){
         // TODO Optional 3
-        throw new NotImplementedException();
+
+        ResponseEntity<Person>responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        if(newPerson.getFirstName().length()>0 && newPerson.getLastName().length()>0){
+            Person person;
+            person = new Person(
+                    null,
+                    newPerson.getFirstName(),
+                    newPerson.getLastName(),
+                    newPerson.isAuthorised(),
+                    newPerson.isEnabled(),
+                    newPerson.getColours()
+            );
+            peopleRespository.saveAndFlush(person);
+            responseEntity = new ResponseEntity<Person>(person,HttpStatus.OK);
+        }
+
+        return responseEntity;
+
     }
 
 }
