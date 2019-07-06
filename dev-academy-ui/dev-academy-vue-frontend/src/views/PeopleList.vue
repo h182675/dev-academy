@@ -66,7 +66,7 @@ export default Vue.extend({
       //
       // Example: "Blue, Green, Red"
 
-      let sortedColours = colours;
+      let sortedColours = [...colours];
 
       // Sort
       sortedColours = sortedColours.sort((a: IColour, b: IColour) => {
