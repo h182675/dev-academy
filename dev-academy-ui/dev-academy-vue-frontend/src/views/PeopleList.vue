@@ -27,9 +27,9 @@
           >{{person | fullName}}
           </router-link>
         </td>
-        <td>{{person | palindrome}}</td>
-        <td>{{person.authorised ? 'Yes' : 'No'}}</td>
-        <td>{{person.enabled ? 'Yes' : 'No'}}</td>
+        <td :class="person | palindrome">{{person | palindrome}}</td>
+        <td :class="person.authorised ? 'Yes' : 'No'">{{person.authorised ? 'Yes' : 'No'}}</td>
+        <td :class="person.enabled ? 'Yes' : 'No'">{{person.enabled ? 'Yes' : 'No'}}</td>
         <td>{{person.colours | colourNames}}</td>
       </tr>
       </tbody>
@@ -52,9 +52,6 @@ export default Vue.extend({
       people,
     };
   },
-  computed: {
-
-  },
   filters: {
     colourNames: (colours: IColour[]): string => {
       // TODO: Step 4
@@ -66,10 +63,8 @@ export default Vue.extend({
       //
       // Example: "Blue, Green, Red"
 
-      let sortedColours = [...colours];
-
       // Sort
-      sortedColours = sortedColours.sort((a: IColour, b: IColour) => {
+      let sortedColours = [...colours].sort((a: IColour, b: IColour) => {
         if (a.name < b.name) {
           return -1;
         }
@@ -119,7 +114,12 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="sass">
-
+<style lang="scss" scoped>
+  .Yes{
+    color:lime;
+  }
+  .No{
+    color:tomato;
+  }
 </style>
 
